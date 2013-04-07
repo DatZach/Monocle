@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using Monocle.Lexer;
 
@@ -7,11 +8,13 @@ namespace Monocle.Compile
 	partial class Compiler
 	{
 		private readonly StringBuilder assemblyStream;
+		private List<string> localStrings;
 		private TokenStream stream;
 
 		public Compiler()
 		{
 			assemblyStream = new StringBuilder();
+			localStrings = null;
 			stream = null;
 		}
 
@@ -26,7 +29,7 @@ namespace Monocle.Compile
 				Program();
 				fasm.Add(assemblyStream.ToString());
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{
 				Console.WriteLine("Compile Error: {0}", e.Message);
 				return false;
@@ -36,7 +39,7 @@ namespace Monocle.Compile
 			{
 				fasm.Assemble(filename);
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{
 				Console.WriteLine("Assembler Error: {0}", e.Message);
 				return false;

@@ -44,7 +44,13 @@ namespace Monocle.Compile
 
 		private void Factor()
 		{
-			Emit("mov	eax, {0}", stream.Read().Value);
+			if (stream.Peek().Type == TokenType.Number)
+				Emit("mov	eax, {0}", stream.Read().Value);
+			else if (stream.Peek().Type == TokenType.String)
+			{
+				Emit("mov	eax, .lstr{0}", localStrings.Count);
+				localStrings.Add(stream.Read().Value);
+			}
 		}
 	}
 }

@@ -1,4 +1,5 @@
-﻿using Monocle.Lexer;
+﻿using System.Collections.Generic;
+using Monocle.Lexer;
 
 namespace Monocle.Compile
 {
@@ -22,6 +23,8 @@ namespace Monocle.Compile
 
 		private void Function()
 		{
+			localStrings = new List<string>();
+
 			stream.Expect(TokenType.Word, "function");
 			
 			// TODO Ignore type for now
@@ -35,6 +38,9 @@ namespace Monocle.Compile
 			stream.Expect(TokenType.Delimiter, ")");
 
 			Block();
+
+			for(int i = 0; i < localStrings.Count; ++i)
+				Emit(".lstr{0} db '{1}', 0", i, localStrings[i]);
 		}
 
 		private void Block()
