@@ -34,20 +34,23 @@ namespace Monocle.Compile
 			// TODO Ignore variables
 			stream.Expect(TokenType.Delimiter, ")");
 
-			stream.Expect(TokenType.Delimiter, "{");
-			Emit("push	ebp");
-			Emit("mov	ebp, esp");
-
 			Block();
-			
-			stream.Expect(TokenType.Delimiter, "}");
-			Emit("pop	ebp");
-			Emit("ret");
 		}
 
 		private void Block()
 		{
-			
+			stream.Expect(TokenType.Delimiter, "{");
+			Emit("push	ebp");
+			Emit("mov	ebp, esp");
+
+			while(!stream.Accept(TokenType.Delimiter, "}"))
+			{
+				Expression();
+				stream.Expect(TokenType.Delimiter, ";");
+			}
+
+			Emit("pop	ebp");
+			Emit("ret");
 		}
 
 		private void EmitHeader(string entryPointName)

@@ -42,6 +42,8 @@ namespace Monocle.Compile
 				return false;
 			}
 
+			Console.Write(assemblyStream.ToString());
+
 			return true;
 		}
 	}

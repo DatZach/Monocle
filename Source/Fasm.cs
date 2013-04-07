@@ -43,8 +43,6 @@ namespace Monocle
 				}
 			};
 
-			Console.WriteLine("fasm.exe {0}", process.StartInfo.Arguments);
-
 			process.Start();
 
 			string result = process.StandardOutput.ReadToEnd();

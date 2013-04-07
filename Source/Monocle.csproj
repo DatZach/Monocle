@@ -36,6 +36,8 @@
   <ItemGroup>
     <Compile Include="Compile\Compiler.Assembly.cs" />
     <Compile Include="Compile\Compiler.cs" />
+    <Compile Include="Compile\Compiler.Expressions.cs" />
+    <Compile Include="Compile\Compiler.Helper.cs" />
     <Compile Include="Compile\Compiler.TopLevel.cs" />
     <Compile Include="Compile\CompilerException.cs" />
     <Compile Include="Fasm.cs" />
