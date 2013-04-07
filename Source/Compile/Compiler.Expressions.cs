@@ -44,9 +44,28 @@ namespace Monocle.Compile
 
 		private void Factor()
 		{
-			if (stream.Peek().Type == TokenType.Number)
+			if (stream.Accept(TokenType.Word, "_asm"))
+			{
+				StringBuilder asmSource = new StringBuilder();
+				stream.Expect(TokenType.Delimiter, "{");
+
+				while (!stream.Accept(TokenType.Delimiter, "}"))
+				{
+					Token token = stream.Read();
+					if (token.Line != stream.Peek().Line)
+						asmSource.AppendLine(token.Value);
+					else
+					{
+						asmSource.Append(token.Value);
+						asmSource.Append(" ");
+					}
+				}
+
+				Emit(asmSource.ToString());
+			}
+			else if (stream.Pass(TokenType.Number))
 				Emit("mov	eax, {0}", stream.Read().Value);
-			else if (stream.Peek().Type == TokenType.String)
+			else if (stream.Pass(TokenType.String))
 			{
 				Emit("mov	eax, .lstr{0}", localStrings.Count);
 				localStrings.Add(stream.Read().Value);
