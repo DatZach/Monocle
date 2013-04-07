@@ -34,9 +34,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Compile\Compiler.Assembly.cs" />
+    <Compile Include="Compile\Compiler.cs" />
+    <Compile Include="Compile\Compiler.TopLevel.cs" />
+    <Compile Include="Compile\CompilerException.cs" />
     <Compile Include="Fasm.cs" />
     <Compile Include="Lexer\Token.cs" />
     <Compile Include="Lexer\Tokenizer.cs" />
+    <Compile Include="Lexer\TokenStream.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Util\StringStream.cs" />
   </ItemGroup>
