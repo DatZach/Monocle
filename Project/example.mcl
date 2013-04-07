@@ -1,0 +1,43 @@
+/*
+ *	example.mcl
+ *	Monocle Syntax
+ *
+ *	Data types:
+ *		u				Unsigned value
+ *		s				Signed value
+ *		0				Void
+ *		8				Byte
+ *		16				Short
+ *		32				Dword
+ *		64				Qword
+ *
+ *	program <EntryPoint>
+ *	function <type> <ident> '(' [<var-decl>]* ')' '{' <block> '}'
+ *	var <type> <ident> ['=' <ident>]
+ */
+
+program EntryPoint;
+
+function u0 print(var str value)
+{
+	asm
+	{
+		invoke	GetStdHandle, 0xFFFFFFF5
+		invoke	WriteConsole, eax, [ebp + 8], [ebp + 12], [charsWritten], 0
+		
+		.charsWritten	dd	?
+	}
+}
+
+function u0 EntryPoint()
+{
+	var str a = "Hello, World!";
+	var s32 b = 1;
+	var s32 c = 2;
+	var s32 d;
+	
+	d = b + c * 2;
+	
+	print(a);
+	//printint(d);
+}
