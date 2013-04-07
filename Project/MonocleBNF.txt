@@ -1,0 +1,14 @@
+<program>			::= 'program' <ident> ';' [<function>]*
+<function>			::= 'function' <type> <ident> '('
+						[<variable-decl> [',' <variable-decl>]*] ')'
+						'{' <block> '}'
+<variable-decl>		::= 'var' <type> <ident>
+
+<block>				::= [(<variable-decl> | <expression>) ';']*
+<expression>		::= <term> [<add-op> <term>]*
+<term>				::= <factor> [<mul-op> <factor>]*
+<factor>			::= ('(' <expression> ')' | <literal> | <variable>)
+
+<type>				::= ('u0' | 'u8' | 'u16' | 'u32')
+<add-op>			::= ('+' | '-')
+<mul-op>			::= ('*' | '/' | '%')

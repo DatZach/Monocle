@@ -51,7 +51,6 @@ namespace Monocle
 
 			if (result.Select((c, i) => result.Substring(i)).Count(sub => sub.StartsWith("error")) != 0)
 				throw new Exception(result);
-				
 		}
 
 		private string CreateTemporaryPath()
