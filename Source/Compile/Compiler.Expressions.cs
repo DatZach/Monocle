@@ -49,15 +49,22 @@ namespace Monocle.Compile
 				StringBuilder asmSource = new StringBuilder();
 				stream.Expect(TokenType.Delimiter, "{");
 
+				bool spaceOpcode = true;
 				while (!stream.Accept(TokenType.Delimiter, "}"))
 				{
 					Token token = stream.Read();
 					if (token.Line != stream.Peek().Line)
+					{
 						asmSource.AppendLine(token.Value);
+						spaceOpcode = true;
+					}
 					else
 					{
 						asmSource.Append(token.Value);
-						asmSource.Append(" ");
+						if (spaceOpcode)
+							asmSource.Append(" ");
+						spaceOpcode = false;
+						//asmSource.Append(" ");
 					}
 				}
 

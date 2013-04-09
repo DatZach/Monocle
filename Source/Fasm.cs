@@ -38,6 +38,7 @@ namespace Monocle
 				{
 					UseShellExecute = false,
 					RedirectStandardOutput = true,
+					RedirectStandardError = true,
 					FileName = "fasm.exe",
 					Arguments = filenames.Aggregate((s, n) => s + " " + n) + " " + filename
 				}
@@ -45,7 +46,7 @@ namespace Monocle
 
 			process.Start();
 
-			string result = process.StandardOutput.ReadToEnd();
+			string result = process.StandardError.ReadToEnd();
 
 			process.WaitForExit();
 
