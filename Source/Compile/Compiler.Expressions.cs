@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using Monocle.Lexer;
 
 namespace Monocle.Compile
@@ -18,8 +15,6 @@ namespace Monocle.Compile
 				switch(stream.Read().Value)
 				{
 					case "+":
-						stream.Accept(TokenType.Delimiter, "+");
-
 						Term();
 						
 						Emit("pop	edx");
@@ -28,6 +23,9 @@ namespace Monocle.Compile
 
 					case "-":
 						Term();
+						
+						Emit("pop	edx");
+						Emit("sub	eax, edx");
 						break;
 
 					default:
@@ -63,8 +61,8 @@ namespace Monocle.Compile
 						asmSource.Append(token.Value);
 						if (spaceOpcode)
 							asmSource.Append(" ");
+
 						spaceOpcode = false;
-						//asmSource.Append(" ");
 					}
 				}
 
